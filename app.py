@@ -1,4 +1,4 @@
-from flask import Flask, redirect, url_for
+from flask import Flask, redirect, url_for, render_template
 
 app = Flask('__name__')
 
@@ -42,20 +42,35 @@ def hello_slash():
 """
 Example - url_for() is use to dynamically redirect request to other functions  
 """
+
+
 @app.route("/admin/<name>")
 def hello_admin(name):
     return f"Welcome {name}. You are admin of flask world"
 
+
 @app.route("/guest/<name>")
 def hello_guest(name):
     if name == "sanjay":
-        return redirect(url_for("hello_admin",name = name))
+        return redirect(url_for("hello_admin", name=name))
     else:
         return redirect(url_for("hello_user", user=name))
+
 
 @app.route("/user/<user>")
 def hello_user(user):
     return f"Welcome {user}. You are user of flask world"
+
+
+"""
+Example - Using  `render_template` to return a html page.
+Also, using Jinga express to pass value from the route to html page.
+"""
+
+
+@app.route("/templates/<name>")
+def flask_template(name):
+    return render_template("index.html", user=name)
 
 
 if __name__ == "__main__":
