@@ -72,6 +72,11 @@ Also, using Jinga express to pass value from the route to html page.
 def flask_template(name):
     return render_template("index.html", user=name)
 
+@app.route("/templates/userdetail")
+def flask_user_details():
+    user = {"name": "Sanjay", "location": "london", "country": "UK"}
+    return render_template("user_details.html", user_data=user)
+
 
 if __name__ == "__main__":
     app.run()
